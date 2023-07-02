@@ -1,0 +1,122 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout d'un livre
+
+
+{% endblock %}
+{% block body %}
+
+<h2>Ajout d'un livre</h2>
+<a href="{{url('app_livres')}}"><button type="button" class="btn rounded-pill btn-success">Retour</button></a>
+<div class="form-horizontal">
+	{{ form_start(form) }}
+        <div class=" form-group ">
+            <label class="control-label col-sm-2 " for="title">Title : </label>
+            <div class="col-sm-10 ">
+                    {{form_widget(form.title) }}
+            </div>
+        </div>
+        <div class=" form-group ">
+            <label class="control-label col-sm-2 " for="image">Image : </label>
+            <div class="col-sm-10 ">
+                    {{form_widget(form.image) }}
+            </div>
+        </div>
+        <div class=" form-group ">
+            <label class="control-label col-sm-2 " for="url">URL of image : </label>
+            <div class="col-sm-10 ">
+                    {{form_widget(form.url) }}
+            </div>
+        </div>
+		<div class="form-group ">
+			<label class="control-label col-sm-2 " for="numberoftasks">Number of tasks : </label>
+			<div class="col-sm-10 ">
+				{{form_widget(form.numberoftasks) }}
+			</div>
+		</div>
+		<div class=" form-group ">
+			<label class="control-label col-sm-2 " for="descrption">Description : </label>
+			<div class="col-sm-10 ">
+				{{form_widget(form.description}}) }}
+			</div>
+		</div>
+		<div class=" form-group ">
+			<label class="control-label col-sm-2 " for="status">Status :</label>
+			<div class="col-sm-10 ">
+				{{form_widget(form.status) }}
+			</div>
+		</div>
+		
+		<div class="form-group button">
+			<div class="col-sm-offset-2 col-sm-10 ">
+				<button type="submit" name="ajouter" class="btn btn-primary">Ajouter</button>
+			</div>
+		</div>
+	{{ form_end(form) }}
+</div>
+
+{% endblock %}
+
+
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Create a project{% endblock %}
+
+{% block body %}
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+    <h1>Create a project</h1>
+    <div>
+
+      <div>
+           {{ form_errors(projectForm) }}
+      </div>
+       {{ form_start(projectForm) }}
+       <div class="form-group">
+            <label class="control-label col-sm-2 " for="auteurLivre">Title</label>
+            <div class="col-sm-10 ">
+                {{ form_row(projectForm.title}}
+            </div>
+       </div>
+        <div class="form-group ">
+            <label class="control-label col-sm-2 " for="auteurLivre">Image Project</label>
+            <div class="col-sm-10 ">
+                    {{ form_row(projectForm.image}}
+            </div>
+        </div>   
+        
+        <div>
+           {{ form_row(projectForm.url, {
+               label: 'Url image'
+           }) }}
+        </div>
+        <div>
+           {{ form_row(projectForm.description, {
+               label: 'Description'
+           }) }}
+        </div>
+         <div>
+           {{ form_row(projectForm.numberoftasks, {
+               label: 'Number of tasks'
+           }) }}
+        </div>
+        <div>
+
+           {{ form_row(projectForm.status, {
+               label: 'Status'
+           })  }}
+         </div>
+        <div>
+            <br><button type="submit" class="btn btn-lg btn-primary">Create</button>
+        </div>
+       {{ form_end(projectForm) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+ <section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+          class="img-fluid" alt="Sample image">
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+            <form method="post">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        <p style="margin-top:4%;">You are logged in as {{ app.user.userIdentifier }}, <button type="button" style="margin-top:2%;" class="btn rounded-pill">
+                            <a href="{{ path('app_logout') }}" style="color:red;" class="link-success">Logout</a>
+                        </button>
+                        </p>
+                        <br>
+                         <a href="{{url('app_list')}}">
+                            <button type="button" class="btn rounded-pill">Back to projects</button>
+                        </a>
+               
+                    </div>
+                {%else%}
+                    <p>You are not logged into the plateform of projects SoftTodo</p>
+                {% endif %}
+                <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                <label for="inputUsername">Username</label>
+                <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
+                <label for="inputPassword">Password</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+                <br><br><button class="btn rounded-pill " type="submit">
+                    Sign in
+                </button>
+                <blockquote class="blockquote">I do not have an account register here:
+      
+                <button type="button" class="btn rounded-pill" >
+                        <a href="{{ path('app_register') }}" class="">Register</a>
+                </button>
+
+            </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

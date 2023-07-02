@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+          class="img-fluid" alt="Sample image">
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+            <h1>Please register user</h1>
+
+            {{ form_errors(registrationForm) }}
+            {% if app.user %}
+                <div class="mb-3">
+                    <p>You are logged in into the projects platform as
+                {{ app.user.userIdentifier }}, <a href="{{url('app_logout')}}">
+                    <button type="button" class="btn rounded-pill ">Logout</button>
+                </a></p>
+        
+                </div>
+                {%else%}
+                    <p>You are not logged into the plateform of projects SoftTodo</p>
+                {% endif %}
+
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.username, {'attr': {'class': 'form-control'}}) }}
+                {{ form_row(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}, {
+                    label: 'Password'
+                }) }}
+                {{ form_row(registrationForm.roles, {'attr': {'class': 'form-control'}}) }}
+
+                <button type="submit" class="btn" style="margin-top:4%;">Register</button>
+                
+
+            {{ form_end(registrationForm) }}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

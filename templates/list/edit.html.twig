@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create a project{% endblock %}
+
+{% block body %}
+<section class="jumbotron text-center">
+
+    {% if app.user %}
+        <p>
+            You are logged in into the projects platform as
+            {{ app.user.userIdentifier }}, 
+            <a href="{{url('app_logout')}}">
+                <button type="button" class="btn rounded-pill white border-primary">Logout</button>
+            </a>
+        </p>
+   
+        <h4 class="d-flex justify-content-center border">Edit the project</h4>
+        <a href="{{url('app_list')}}">
+            <button type="button" style="text-align:left; display:block;" class="btn btn rounded-pill white border-primary">Back to projects</button>
+        </a>
+	{{ form_start(projectForm) }}
+        <div class=" form-group ">
+            <div class="col-sm-10 col-md-4 ">
+                <label class="control-label col-sm-2 " for="title">Title</label>
+                {{form_widget(projectForm.title, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="input-group mb-3">
+        <div class="col-sm-10 col-md-4 ">
+           <label for="basic-url" class="form-label">File name</label>
+           {{form_widget(projectForm.image, {'attr': {'class': 'form-control'}} )}}
+        </div>
+        </div>
+        <div class=" form-group ">
+            <div class="col-sm-10  col-md-4">
+                <label for="basic-url" class="form-label">Url image</label>
+                {{form_widget(projectForm.url, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-group ">
+                <div class="col-sm-10 col-md-4">
+                     <label for="basic-url" class="form-label">Number of tasks</label>
+                    {{form_widget(projectForm.numberoftasks, {'attr': {'class': 'form-control'}}) }}
+                </div>
+        </div>
+        <div class=" form-group ">
+                <div class="col-sm-10 col-md-4 center">
+                   <label class="control-label col-sm-2 " for="descrption">Description</label>
+                    {{form_widget(projectForm.description, {'attr': {'class': 'form-control'}}) }}
+                </div>
+        </div>
+        <div class=" form-group ">
+                <div class="col-sm-10 col-md-4 center" 
+                    <label class="control-label col-sm-2 " for="status">Status</label>
+                       {{form_widget(projectForm.status, {'attr': {'class': 'form-control'}}) }}
+                </div>
+        </div>
+        <div class="form-group button">
+            <div class="col-sm-offset-2 col-sm-10 ">
+                <button type="submit" name="ajouter" class="btn rounded-pill white border-primary" style="text-align:left; display:block;">Ajouter</button>
+            </div>
+        </div>
+	{{ form_end(projectForm) }}
+
+ </section>
+{%endif%}
+{% endblock %}
+
+
+
+

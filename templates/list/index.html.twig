@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Projects plateform SoftToDo{% endblock %}
+
+{% block body %}
+<section class="jumbotron text-center">
+    {% if app.user %}
+        <p style="margin-bottom:3%;">You are logged in into the projects platform as
+        {{ app.user.userIdentifier }}, <a href="{{url('app_logout')}}">
+            <button type="button" class="btn rounded-pill white border-primary">Logout</button>
+        </a>
+        </p>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{url('create_project')}}" >
+             <button type="button" style="text-align:left; display:block;" class="btn btn rounded-pill white border-primary" >Create a new project</button>
+            </a>
+       {%else%}
+           No create projects
+       {% endif %} 
+         
+        <h5 class="justify-content-center border fs-6">List of Projects with Filter: </h5>
+        <p class="row">
+            <select  id="statusfilter" class="selectpicker form-control rounded col-md-4 fs-6" aria-label="Default select example">  aria-label="Default select example">
+              <option selected>Status project</option>                  
+              <option value="in_progress">In progress</option>
+              <option value="done">Done</option>
+              <option value="blocked">Blocked</option>
+            </select>
+            <select  id="titlefilter" class="selectpicker form-control rounded col-md-4 fs-6" aria-label="Default select example">  aria-label="Default select example">
+              <option selected>Project name</option>                  
+              {% for project in projects %}
+                  <option value="{{project.title}}">{{project.title}}</option>
+              {%endfor%}
+            </select>
+             <select  id="imagefilter" class="selectpicker rounded form-control col-md-4 fs-6" aria-label="Default select example">  aria-label="Default select example">
+              <option selected>File name</option>                  
+              {% for project in projects %}
+                  <option value="{{project.image}}">{{project.image}}</option>
+              {%endfor%}
+            </select>
+        </p>
+        <div class="row">
+            {% for project in projects %}
+                <div class="col-sm-3 col-md-3 list-group-item border rounded " style="border-right: 10px solid transparent;" projectstatus="{{project.status}}"  projecttitle="{{project.title}}" projectimage="{{project.image}}">
+                    <img class="col-md-9" src="{{asset('assets/uploads/projects/' ~ project.image )}}"/>
+                    <p class="fs-6 justify-content-center">{{project.title}}</p>
+                     {% if is_granted('ROLE_ADMIN') %}
+                         <a class=" rounded-pill  border" href="{{url('app_edit_project', {'id':project.id})}}" style="margin:2%; display:block; "><span class="glyphicon glyphicon-pencil"></span>Edit Ptoject</a>
+                     {%endif%}
+                         <div class="row border-top">
+                        <div class="col-md-6 col-xs-6"><p class="fs-6">status: {{project.status}}</p></div>
+                        <div class="col-md-6 col-xs-6"><p class="fs-6">tasks: {{project.numberoftasks}}</p></div>
+                    </div>
+                </div>
+            {%endfor%} 
+        </div>
+ 
+{% endif %}
+</section>
+{% endblock %}
